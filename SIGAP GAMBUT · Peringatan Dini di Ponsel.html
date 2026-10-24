@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SIGAP GAMBUT · Peringatan Dini di Ponsel</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--pg:light-dark(#dde0d5,#0d0b08);--bg:light-dark(#eceee6,#17130f);--pan:light-dark(#fbfbf7,#221c16);--pan2:light-dark(#eff0e8,#2c251d);--ink:light-dark(#1c1a15,#f1ebe0);--mute:light-dark(#6b6759,#a59a88);--line:light-dark(#d4d6ca,#3a3127);--acc:light-dark(#c2561a,#e8833a);--ok:light-dark(#2c8a5c,#4fbf86);--warn:light-dark(#b98a0c,#e3b341);--crit:#e5702f;--ext:#d9453d}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%}body{margin:0;background:var(--pg);color:var(--ink);font:15px/1.5 "Public Sans",system-ui,sans-serif;min-height:100%}
+h1,h2,h3,.big{font-family:"Bricolage Grotesque",Georgia,sans-serif;margin:0;letter-spacing:-.01em}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;padding:0;text-align:left}
+button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.stage{display:grid;grid-template-columns:minmax(300px,1fr) auto;gap:40px;max-width:1080px;margin:0 auto;padding:28px 20px;align-items:center;min-height:100vh}
+.side h1{font-size:34px;font-weight:800;line-height:1.1}.side p{color:var(--mute);max-width:46ch}
+.sc{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:18px 0}
+.sc button{border:1px solid var(--line);border-left:5px solid var(--c);background:var(--pan);border-radius:10px;padding:10px 12px;font-weight:600}
+.sc button small{display:block;color:var(--mute);font-weight:400}.sc button[aria-pressed=true]{outline:2px solid var(--ink)}
+.ab{display:inline-block;border:1px solid var(--line);background:var(--pan);border-radius:99px;padding:8px 16px;font-weight:600;margin:0 8px 8px 0}
+.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}.tbl td{padding:6px 8px 6px 0;border-top:1px solid var(--line);vertical-align:top}.tbl i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;background:var(--c)}
+.note{font-size:12.5px;color:var(--mute);margin-top:14px}
+.phone{width:390px;height:800px;border-radius:46px;border:9px solid light-dark(#2b2b28,#050504);background:var(--bg);position:relative;overflow:hidden;box-shadow:0 30px 60px -20px rgba(0,0,0,.5)}
+.sb{height:44px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 28px 6px;font-size:13px;font-weight:600}
+#body{position:absolute;top:44px;bottom:66px;left:0;right:0;overflow-y:auto;padding:6px 16px 18px}
+.tb{position:absolute;bottom:0;left:0;right:0;height:66px;background:var(--pan);border-top:1px solid var(--line);display:flex}
+.tb button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:11px;color:var(--mute);position:relative}
+.tb button[aria-selected=true]{color:var(--acc);font-weight:600}.tb svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tb b{position:absolute;top:8px;left:calc(50% + 6px);background:var(--ext);color:#fff;border-radius:9px;font-size:10px;min-width:16px;text-align:center;padding:0 4px}
+small{color:var(--mute);font-size:12px}
+.hd{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:10px}.hd h2{font-size:22px}
+.card{background:var(--pan);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:10px}
+.st{background:color-mix(in srgb,var(--st) 14%,var(--pan));border-color:color-mix(in srgb,var(--st) 55%,var(--line));text-align:center}
+.gw{position:relative;width:230px;margin:0 auto}.gw svg{display:block;width:100%}.gv{position:absolute;left:0;right:0;bottom:-2px}.gv b{font:800 38px/1 "Bricolage Grotesque";color:var(--st)}.gv small{display:block}
+.sw2{font:800 26px "Bricolage Grotesque";color:var(--st);margin-top:4px}.st p{margin:2px 0 6px;font-size:14px}
+.m3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}.m3 div{background:var(--pan);border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center}.m3 b{display:block;font:700 18px "Bricolage Grotesque"}
+.zr{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-top:1px solid var(--line);width:100%}.zr:first-of-type{border:0}
+.chip{border-radius:99px;padding:2px 10px;font-size:12px;font-weight:600;background:color-mix(in srgb,var(--st) 20%,transparent);color:var(--st)}
+.cp{display:flex;gap:8px;margin-bottom:8px}.cp button{border:1px solid var(--line);border-radius:99px;padding:5px 12px;font-size:13px;background:var(--pan)}.cp button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.mp{border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--pan2)}.mp svg{display:block;width:100%}.mp text{fill:var(--mute);font-size:9px}
+.pl{transform-box:fill-box;transform-origin:center;animation:pl 1.8s ease-out infinite}@keyframes pl{from{transform:scale(1);opacity:.8}to{transform:scale(3.2);opacity:0}}
+.sh h3{font-size:18px}.sh .m3 div{padding:8px}
+.nt{display:flex;gap:10px;padding:12px 0;border-top:1px solid var(--line)}.nt:first-of-type{border:0}.nt i{flex:none;width:10px;height:10px;border-radius:50%;background:var(--st);margin-top:6px}.nt p{margin:0;font-size:13.5px}.nt b{font-size:14px}
+.ck{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line);width:100%}.ck span{flex:none;width:22px;height:22px;border-radius:7px;border:2px solid var(--mute);display:grid;place-items:center;font-size:13px}
+.ck[aria-pressed=true] span{background:var(--ok);border-color:var(--ok);color:#fff}.ck[aria-pressed=true] em{text-decoration:line-through;color:var(--mute)}.ck em{font-style:normal}
+.qc{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.qc button{border:1px solid var(--line);background:var(--pan);border-radius:12px;padding:10px 4px;text-align:center;font-size:13px;font-weight:600}
+#bn{position:absolute;top:48px;left:10px;right:10px;z-index:5;background:var(--pan);border:1px solid var(--line);border-left:6px solid var(--st);border-radius:16px;padding:11px 14px;box-shadow:0 12px 30px rgba(0,0,0,.35);transform:translateY(-140%);transition:transform .35s}
+#bn.on{transform:none}#bn.sk{animation:sk .5s}@keyframes sk{20%{margin-left:-6px}40%{margin-left:6px}60%{margin-left:-4px}80%{margin-left:4px}}
+#bn small{display:block}#bn b{font-size:14px}#bn p{margin:2px 0 0;font-size:13px}
+#lk{position:absolute;inset:0;z-index:9;display:none;flex-direction:column;align-items:center;padding:70px 14px 0;background:linear-gradient(170deg,#2a3b34,#14110d 70%);color:#f1ebe0}
+#lk.on{display:flex}#lk .tm{font:800 72px "Bricolage Grotesque";line-height:1}#lk .nc{margin-top:auto;margin-bottom:60px;width:100%;background:rgba(255,255,255,.14);backdrop-filter:blur(14px);border-radius:18px;padding:12px 14px;border-left:6px solid var(--st)}
+#lk small{color:#cfc6b6}#lk .nc p{margin:3px 0 0;font-size:13.5px}
+#ts{position:absolute;left:50%;bottom:80px;transform:translateX(-50%);background:var(--ink);color:var(--bg);border-radius:99px;padding:7px 14px;font-size:12.5px;opacity:0;transition:opacity .25s;z-index:7;white-space:nowrap;pointer-events:none}#ts.on{opacity:1}
+@media(max-width:860px){.stage{grid-template-columns:1fr;gap:24px}.phone{order:-1;margin:0 auto}}
+@media(max-width:440px){.phone{width:100%;height:760px;border-width:6px;border-radius:34px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="stage">
+<div class="side">
+ <h1>Peringatan dini smoldering di layar ponsel</h1>
+ <p>Ini tampilan yang diterima Masyarakat Peduli Api, Kelompok Tani Peduli Api, dan petugas puskesmas ketika Smoldering Risk Index (SRI) naik. Pilih skenario, lalu lihat notifikasi, layar kunci, peta sensor, dan daftar tindakan di ponsel.</p>
+ <div class="sc" id="scb"></div>
+ <button class="ab" onclick="lock()">Tampilkan layar kunci</button><button class="ab" id="th">Ganti tema</button>
+ <table class="tbl"><tr><td><i style="--c:var(--ok)"></i>Aman 0 sampai 75</td><td>Pemantauan rutin</td></tr><tr><td><i style="--c:var(--warn)"></i>Waspada 75 sampai 150</td><td>MPA patroli, siapkan air</td></tr><tr><td><i style="--c:var(--crit)"></i>Kritis 150 sampai 225</td><td>Respons komunitas, kabari puskesmas dan sekolah</td></tr><tr><td><i style="--c:var(--ext)"></i>Ekstrem 225 sampai 300</td><td>Respons darurat, lapor BPBD</td></tr></table>
+ <p class="note">Mode simulasi. Nilai sensor dan rumus SRI bersifat ilustratif. Peta di ponsel bersifat skematis: koordinat kecamatan dan kota adalah perkiraan, dan posisi sensor adalah contoh. Citra peta digital tidak dapat dimuat di halaman ini, jadi untuk aplikasi nyata lapisan ini diganti dengan peta dasar (misalnya Leaflet atau Mapbox).</p>
+</div>
+<div class="phone" id="ph">
+ <div class="sb"><span id="clk">07:42</span><span>5G ▮▮▮ 86%</span></div>
+ <div id="bn" role="alert"></div><div id="ts"></div>
+ <div id="body"></div>
+ <div class="tb" id="tb"></div>
+ <div id="lk"></div>
+</div>
+</div>
+<script>
+var $=function(s){return document.querySelector(s)},C=function(v,a,b){return Math.max(a,Math.min(b,v))};
+var LV=[['Aman','var(--ok)','Tidak ada indikasi smoldering.'],['Waspada','var(--warn)','Gambut mulai kering. Tingkatkan pemantauan.'],['Kritis','var(--crit)','Risiko smoldering tinggi. Aktifkan respons komunitas.'],['Ekstrem','var(--ext)','Smoldering sangat mungkin terjadi. Respons darurat.']];
+var lv=function(r){return r<75?0:r<150?1:r<225?2:3};
+var N=[{id:'G-01',z:'Gambut',x:170,y:236,o:0},{id:'G-02',z:'Gambut',x:196,y:255,o:25,hp:1},{id:'G-03',z:'Gambut',x:218,y:228,o:-15},{id:'K-01',z:'Kertak Hanyar',x:108,y:200,o:10},{id:'K-02',z:'Kertak Hanyar',x:130,y:222,o:18,hp:1},{id:'K-03',z:'Kertak Hanyar',x:94,y:232,o:-20},{id:'T-01',z:'Sungai Tabuk',x:140,y:60,o:-10,c:1},{id:'T-02',z:'Sungai Tabuk',x:120,y:74,o:5,c:1}];
+var sc=110,tick=0,tab='h',sel='G-02',heat=1,chk={},unread=1,ns=[{lv:1,t:'Kemarin',ti:'Waspada di K-02 Kertak Hanyar',b:'SRI 118. MPA diminta patroli.'},{lv:0,t:'Kemarin',ti:'Status kembali Aman',b:'Semua zona di bawah ambang Waspada.'}];
+var sri=function(n){return Math.round(C(sc+n.o+Math.sin(tick*.9+n.x)*4,0,300))};
+var vals=function(r){return{t:(30+r*.14).toFixed(1),m:Math.round(75-r*.2),g:Math.round(15+r*.28)}};
+function worst(){var w=null;N.forEach(function(n){if(!n.c&&(!w||sri(n)>sri(w)))w=n});return w}
+function gauge(r){var pt=function(v,R){var a=Math.PI*(1-v/300);return[(110+R*Math.cos(a)).toFixed(1),(110-R*Math.sin(a)).toFixed(1)]},s='',l=lv(r);
+ for(var i=0;i<4;i++)s+='<path d="M'+pt(i*75,90)+' A90 90 0 0 1 '+pt(i*75+75,90)+'" stroke="'+LV[i][1]+'" stroke-width="14" fill="none" opacity="'+(i===l?1:.28)+'"/>';
+ var n=pt(r,68);return'<svg viewBox="0 0 220 122">'+s+'<line x1="110" y1="110" x2="'+n[0]+'" y2="'+n[1]+'" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/><circle cx="110" cy="110" r="6" fill="var(--ink)"/></svg>'}
+function spark(r,l){var p=[];for(var i=0;i<24;i++)p.push((i*12.5)+','+(56-C(r*(.4+.6*i/23)+Math.sin(i*1.3)*9,0,300)/300*52).toFixed(1));return'<svg viewBox="0 0 290 60" style="width:100%;margin-top:6px"><polyline points="'+p.join(' ')+'" fill="none" stroke="'+LV[l][1]+'" stroke-width="2.6" stroke-linejoin="round"/></svg>'}
+var now=function(){var d=new Date();return('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)};
+var dt=new Date().toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long'});
+var V={
+h:function(){var w=worst(),r=sri(w),l=lv(r),v=vals(r),h='<div class="hd"><div><small>Pos pantau Gambut</small><h2>Kab. Banjar</h2></div><small>'+dt+'</small></div>';
+ h+='<div class="card st" style="--st:'+LV[l][1]+'"><div class="gw">'+gauge(r)+'<div class="gv"><b>'+r+'</b><small>Smoldering Risk Index</small></div></div><div class="sw2">'+LV[l][0]+'</div><p>'+LV[l][2]+'</p><small>Titik tertinggi: '+w.id+' · '+w.z+' · baru saja</small></div>';
+ h+='<div class="m3"><div><b>'+v.t+'°</b><small>Suhu tanah</small></div><div><b>'+v.m+'%</b><small>Kelembapan</small></div><div><b>'+v.g+' cm</b><small>Muka air</small></div></div>';
+ h+='<div class="card"><small>Tren SRI 24 jam terakhir</small>'+spark(r,l)+'</div><div class="card" style="padding:4px 14px"><small style="display:block;padding-top:10px">Status per kecamatan</small>';
+ ['Gambut','Kertak Hanyar','Sungai Tabuk'].forEach(function(z){var m=0,c=0;N.forEach(function(n){if(n.z===z){m=Math.max(m,sri(n));c=n.c}});h+='<button class="zr" data-go="'+z+'"><span>'+z+(c?' <small>kontrol</small>':'')+'</span><span class="chip" style="--st:'+LV[lv(m)][1]+'">'+m+' · '+LV[lv(m)][0]+'</span></button>'});
+ return h+'</div>'},
+m:function(){var n=N.filter(function(x){return x.id===sel})[0],r=sri(n),l=lv(r),v=vals(r),s='<defs>';
+ for(var i=0;i<4;i++)s+='<radialGradient id="h'+i+'"><stop offset="0" stop-color="'+LV[i][1]+'" stop-opacity=".65"/><stop offset="1" stop-color="'+LV[i][1]+'" stop-opacity="0"/></radialGradient>';
+ s+='</defs><rect width="360" height="300" fill="var(--pan2)"/><path d="M327 183C290 170 240 160 200 145S110 105 71 77" fill="none" stroke="#4b97b5" stroke-width="5" opacity=".6" stroke-linecap="round"/><path d="M22 0C40 80 30 200 38 300" fill="none" stroke="#4b97b5" stroke-width="9" opacity=".5"/><text x="46" y="150" style="font-size:8px">Sungai Barito</text><text x="210" y="138" style="font-size:8px" transform="rotate(14 210 138)">Sungai Martapura</text>';
+ [[195,240,58,36,'Gambut'],[110,214,42,34,'Kertak Hanyar'],[130,66,44,28,'Sungai Tabuk (kontrol)']].forEach(function(e){s+='<ellipse cx="'+e[0]+'" cy="'+e[1]+'" rx="'+e[2]+'" ry="'+e[3]+'" fill="none" stroke="var(--mute)" stroke-dasharray="4 3" opacity=".7"/><text x="'+e[0]+'" y="'+(e[1]-e[3]-4)+'" text-anchor="middle" style="font-weight:600">'+e[4]+'</text>'});
+ [[71,77,'Banjarmasin','m'],[290,230,'Banjarbaru','m'],[327,183,'Martapura','e']].forEach(function(c){s+='<circle cx="'+c[0]+'" cy="'+c[1]+'" r="3" fill="var(--ink)"/><text x="'+(c[3]==='e'?c[0]-6:c[0]+6)+'" y="'+(c[1]+3)+'" text-anchor="'+(c[3]==='e'?'end':'start')+'">'+c[2]+'</text>'});
+ s+='<rect x="196" y="207" width="8" height="8" rx="2" fill="#d9453d"/><path d="M200 208.5v5M197.5 211h5" stroke="#fff" stroke-width="1.4"/><text x="200" y="203" text-anchor="middle" style="font-size:7.5px">RSJ Sambang Lihum</text>';
+ N.forEach(function(q){var k=sri(q),j=lv(k);if(heat)s+='<circle cx="'+q.x+'" cy="'+q.y+'" r="'+(16+k/300*30)+'" fill="url(#h'+j+')"/>'});
+ N.forEach(function(q){var k=sri(q),j=lv(k);if(j>1)s+='<circle class="pl" cx="'+q.x+'" cy="'+q.y+'" r="8" fill="none" stroke="'+LV[j][1]+'" stroke-width="2"/>';
+  s+='<g data-id="'+q.id+'" style="cursor:pointer"><circle cx="'+q.x+'" cy="'+q.y+'" r="14" fill="transparent"/><circle cx="'+q.x+'" cy="'+q.y+'" r="'+(q.id===sel?9:7)+'" fill="'+LV[j][1]+'" stroke="'+(q.id===sel?'var(--ink)':'#fff')+'" stroke-width="2.5"/>'+(q.hp?'<rect x="'+(q.x+6)+'" y="'+(q.y-12)+'" width="6" height="6" rx="1" fill="var(--acc)"/>':'')+'</g>'});
+ s+='<path d="M338 14l5 12-5-3-5 3z" fill="var(--ink)"/><text x="338" y="38" text-anchor="middle">U</text><line x1="14" y1="284" x2="59" y2="284" stroke="var(--ink)" stroke-width="2"/><text x="14" y="276">± 5 km</text>';
+ var h='<div class="hd"><div><small>Peta sensor</small><h2>Banjar, 8 titik</h2></div></div><div class="cp"><button aria-pressed="'+!!heat+'" data-heat="1">Peta panas</button><button disabled style="opacity:.6">Skematis</button></div><div class="mp"><svg viewBox="0 0 360 300" role="img" aria-label="Peta skematis sensor">'+s+'</svg></div>';
+ return h+'<div class="card sh" style="margin-top:10px"><div style="display:flex;justify-content:space-between;align-items:center"><div><h3>'+n.id+' · '+n.z+'</h3><small>'+(n.c?'Zona kontrol, tanpa intervensi':'Zona intervensi')+(n.hp?' · heat pipe terpasang':'')+'</small></div><span class="chip" style="--st:'+LV[l][1]+'">'+LV[l][0]+'</span></div><div class="m3" style="margin:10px 0 8px"><div><b>'+r+'</b><small>SRI</small></div><div><b>'+v.t+'°</b><small>Suhu</small></div><div><b>'+v.g+' cm</b><small>Muka air</small></div></div><small>Kelembapan '+v.m+'%. '+LV[l][2]+'</small></div>'},
+n:function(){var h='<div class="hd"><h2>Notifikasi</h2></div><div class="card" style="padding:4px 14px">';ns.forEach(function(x){h+='<div class="nt" style="--st:'+LV[x.lv][1]+'"><i></i><div><b>'+x.ti+'</b><p>'+x.b+'</p><small>'+x.t+'</small></div></div>'});return h+'</div>'},
+a:function(){var w=worst(),l=lv(sri(w)),S=[['Lanjutkan pemantauan rutin harian','Periksa baterai dan sinyal semua sensor','Catat data pada Formulir 1'],['MPA patroli di titik Waspada','Siapkan pompa dan sumber air terdekat','Ukur TMAT dengan piezometer','Kabari KTPA setempat'],['Aktifkan tim respons MPA dan KTPA','Basahi area titik panas, pantau suhu tiap jam','Kabari puskesmas dan kepala sekolah','Imbauan masker untuk balita, ibu hamil, lansia'],['Lapor ke BPBD dan Steering Committee','Pembasahan darurat oleh tim terlatih','Tunda kegiatan luar ruang sekolah','Siapkan layanan ISPA di puskesmas','Pindahkan kelompok rentan bila perlu']],
+ h='<div class="hd"><div><small>Status saat ini: '+LV[l][0]+'</small><h2>Tindakan</h2></div></div><div class="card" style="padding:4px 14px">';
+ S[l].forEach(function(x,i){var k=l+'-'+i;h+='<button class="ck" data-chk="'+k+'" aria-pressed="'+!!chk[k]+'"><span>'+(chk[k]?'✓':'')+'</span><em>'+x+'</em></button>'});
+ return h+'</div><small>Kontak cepat</small><div class="qc" style="margin-top:6px"><button data-toast="Puskesmas">Puskesmas</button><button data-toast="Koordinator MPA">MPA</button><button data-toast="BPBD Kab. Banjar">BPBD</button></div>'}};
+var IC={h:'M3 11l9-8 9 8v10h-6v-6H9v6H3z',m:'M9 4L3 6v14l6-2 6 2 6-2V4l-6 2zM9 4v14M15 6v14',n:'M6 16v-5a6 6 0 0112 0v5l2 2H4zM10 20a2 2 0 004 0',a:'M4 12l5 5L20 6'},LB={h:'Beranda',m:'Peta',n:'Notifikasi',a:'Tindakan'};
+function render(){$('#body').innerHTML=V[tab]();var t='';for(var k in LB)t+='<button data-tab="'+k+'" aria-selected="'+(tab===k)+'"><svg viewBox="0 0 24 24"><path d="'+IC[k]+'"/></svg>'+LB[k]+(k==='n'&&unread?'<b>'+unread+'</b>':'')+'</button>';$('#tb').innerHTML=t;$('#clk').textContent=now();
+ var b='',w=worst(),l=lv(sri(w)),S=[['Aman',35],['Waspada',110],['Kritis',190],['Ekstrem',255]];S.forEach(function(s,i){b+='<button style="--c:'+LV[i][1]+'" aria-pressed="'+(lv(sc)===i)+'" onclick="setSc('+s[1]+')">'+s[0]+'<small>SRI sekitar '+s[1]+'</small></button>'});$('#scb').innerHTML=b}
+function toast(t){var e=$('#ts');e.textContent=t;e.classList.add('on');setTimeout(function(){e.classList.remove('on')},2000)}
+var bt;function setSc(v){sc=v;tick++;var w=worst(),r=sri(w),l=lv(r),x=vals(r),ti=l?LV[l][0]+' di '+w.id+' '+w.z:'Status kembali Aman',b=l?'SRI '+r+'. Suhu tanah '+x.t+'°C, muka air '+x.g+' cm. '+LV[l][2]:'Semua zona di bawah ambang Waspada.';
+ ns.unshift({lv:l,t:now(),ti:ti,b:b});if(tab!=='n')unread++;else unread=0;var e=$('#bn');e.style.setProperty('--st',LV[l][1]);e.innerHTML='<small>SIGAP GAMBUT · sekarang</small><b>'+ti+'</b><p>'+b+'</p>';e.classList.remove('sk');e.classList.add('on');if(l>1){void e.offsetWidth;e.classList.add('sk')}
+ clearTimeout(bt);bt=setTimeout(function(){e.classList.remove('on')},5500);$('#lk').classList.remove('on');render()}
+function lock(){var n=ns[0],e=$('#lk');e.innerHTML='<small>'+dt+'</small><div class="tm">'+now()+'</div><div class="nc" style="--st:'+LV[n.lv][1]+'"><small>SIGAP GAMBUT · '+n.t+'</small><b>'+n.ti+'</b><p>'+n.b+'</p></div><small>Ketuk notifikasi untuk membuka aplikasi</small>';e.classList.add('on');e.onclick=function(){e.classList.remove('on');tab='h';render()}}
+$('#bn').onclick=function(){this.classList.remove('on');tab='n';unread=0;render()};
+$('#tb').onclick=function(e){var b=e.target.closest('[data-tab]');if(b){tab=b.dataset.tab;if(tab==='n')unread=0;render()}};
+$('#body').onclick=function(e){var t=e.target.closest('[data-id],[data-go],[data-chk],[data-toast],[data-heat]');if(!t)return;var d=t.dataset;
+ if(d.id){sel=d.id;render()}else if(d.go){tab='m';sel=N.filter(function(n){return n.z===d.go})[0].id;render()}else if(d.chk){chk[d.chk]=!chk[d.chk];render()}else if(d.heat){heat=heat?0:1;render()}else toast('Demo: menghubungi '+d.toast+' tidak aktif')};
+$('#th').onclick=function(){var r=document.documentElement,c=r.dataset.theme||(matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');r.dataset.theme=c==='dark'?'light':'dark'};
+setInterval(function(){tick++;if(tab==='h'||tab==='m')render()},4000);
+render();
+</script>
+</body>
+</html>
